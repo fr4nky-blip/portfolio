@@ -14,14 +14,27 @@
   margin: 0; padding: 0; box-sizing: border-box;
 }
 body {
-  background: url('images/ps3.gif') no-repeat center center fixed;
-  background-size: cover;
+  position: relative;
   background-color: #121212;
   color: #00bcd4aa;
   font-family: 'Orbitron', sans-serif;
   padding: 0 20px;
-  font-size: 19px; /* Default size */
+  font-size: 19px;
   overflow-x: hidden;
+  z-index: 1;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('images/pupleast.gif') no-repeat center center fixed;
+  background-size: cover;
+  opacity: 0.2; /* Adjust transparency here */
+  z-index: -1;
 }
 
 header {
@@ -120,7 +133,7 @@ header {
 
 /* Shrunk header on scroll */
 header.shrunk {
-  min-height: 60px;
+  min-height: 30px;
   padding: 8px 20px;
   flex-direction: row;
   align-items: center;
@@ -572,7 +585,7 @@ form button:hover {
   color: #a855f7;
 }
 #contact.section {
-  padding: 40px;
+  padding: 50px;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
   box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
@@ -785,7 +798,7 @@ form button:hover {
     <div class="header-right">
       <div class="actions">
         <a
-          href="images/esume.pdf"
+          href="images/FRANKLIN PRASANNA (5).pdf"
           download
           class="btn-resume"
           title="Download Resume"
@@ -842,7 +855,6 @@ form button:hover {
 During my internship at Kashiv InfoTech, I enhanced website performance by developing responsive front-end interfaces and integrating secure back-end systems. I am committed to continuous learning and adapting to new technologies, with a keen interest in game and web development.
 
 I am eager to contribute my technical skills, creativity, and collaborative mindset to a forward-thinking organization where I can grow and make a meaningful impact. If you’re looking for a motivated, quick learner ready to tackle challenges and add value to your team, let’s connect!</p>
-   <br>
 </section>
  <section id="skills" class="section">
   <h2>My Skills</h2>
@@ -878,11 +890,6 @@ I am eager to contribute my technical skills, creativity, and collaborative mind
 
 
   <section id="projects" class="section">
-    <br>
-     <br>
-      <br>
-       <br>
-      <br>
     <h2>My Projects</h2>
     <br>
     <br>
@@ -907,10 +914,6 @@ Skills: JavaScript · SQ</p>
   </section>
 
  <section id="education" class="section">
-  <br>
-  <br>
-  <br>
-  <br>
   <h2>My Education</h2>
 <br>
 <br>
@@ -933,7 +936,7 @@ Skills: JavaScript · SQ</p>
       <h2>St. Joseph College of Arts & Science College</h2>
       <p>
         Master's degree, Computer Science<br>
-        Grade: 7.0<br>
+        Grade: 7.79<br>
         QQ59+XP3, Allpettai, Manjakuppam, Cuddalore, Tamil Nadu 607001
       </p>
     </div>
@@ -971,14 +974,6 @@ Skills: JavaScript · SQ</p>
         </p>
       </div>
     </div>
-
-    <div class="certificate-item">
-      <img src="images/github-cicd.png" alt="GitHub CI/CD" />
-      <div class="certificate-info">
-        <p><strong>GitHub CI/CD</strong> – Coursera</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -986,27 +981,37 @@ Skills: JavaScript · SQ</p>
 <section id="contact" class="section contact-section">
   <h2>Contact</h2>
   <div class="contact-container">
-    
+
     <!-- Left: Contact Info -->
     <div class="contact-info">
       <p><i class="fas fa-envelope"></i> franklinprasanna399@gmail.com</p>
       <p><i class="fas fa-phone-alt"></i> +91 9344940029</p>
       <div class="socials">
-        <a href="https://linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/yourgithub" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/franklin-prasanna-ba1a252a4" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/fr4nky-blip" target="_blank"><i class="fab fa-github"></i></a>
       </div>
     </div>
 
     <!-- Right: Contact Form -->
-    <form class="contact-form" action="mailto:franklinprasanna399@gmail.com" method="post" enctype="text/plain">
+    
+<form class="contact-form" action="https://formspree.io/f/mgvzyqjb" method="POST">
+   <h2>Submit your Queries</h2>
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <textarea name="message" placeholder="Your Message" required></textarea>
+
+      <!-- Optional: Prevent spam -->
+      <input type="hidden" name="_captcha" value="false">
+
+      <!-- Optional: Redirect after submission -->
+      <input type="hidden" name="_next" value="https://fr4nky-blip.vercel.app/thanks.html">
+
       <button type="submit">Send Message</button>
     </form>
 
   </div>
 </section>
+
 
 
   <footer>
