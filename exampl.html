@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Franky | Home</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 0 20px;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background-color: #1f1f1f;
+      padding: 20px;
+      z-index: 1000;
+      border-bottom: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      min-height: 200px;
+      box-shadow: 0 0 10px #00bcd4aa;
+      transition: min-height 0.5s ease, padding 0.5s ease;
+    }
+
+    /* Shrunk header on scroll */
+    header.shrunk {
+      min-height: 60px;
+      padding: 8px 20px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px #00bcd4cc;
+    }
+
+    /* Container for photo + name + subtitle */
+    .header-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.5s ease;
+      width: 100%;
+      justify-content: center;
+    }
+
+    header.shrunk .header-top {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 15px;
+      width: auto;
+    }
+
+    /* The profile photo */
+    .profile-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 3px solid #00bcd4;
+      object-fit: cover;
+      box-shadow: 0 0 15px #00bcd4cc;
+      transition: all 0.5s ease;
+    }
+
+    /* Shrink photo on scroll and move to top-left */
+    header.shrunk .profile-photo {
+      width: 70px;
+      height: 70px;
+      box-shadow: 0 0 10px #00bcd4cc;
+    }
+
+    /* Name and subtitle container */
+    .name-subtitle {
+      text-align: center;
+      transition: all 0.5s ease;
+      color: #00bcd4;
+    }
+
+    header.shrunk .name-subtitle {
+      text-align: left;
+      color: #00bcd4;
+    }
+
+    .name-subtitle h1 {
+      font-size: 1.8em;
+      margin-bottom: 5px;
+      transition: font-size 0.5s ease;
+    }
+
+    /* Smaller text on scroll */
+    header.shrunk .name-subtitle h1 {
+      font-size: 1.2em;
+      margin-bottom: 0;
+    }
+
+    .name-subtitle p {
+      font-size: 1em;
+      color: #aaa;
+      margin-top: 0;
+      transition: opacity 0.5s ease, font-size 0.5s ease;
+    }
+
+    header.shrunk .name-subtitle p {
+      font-size: 0.8em;
+      opacity: 0.7;
+      margin: 0;
+    }
+
+    /* New wrapper for right side (resume + socials) */
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.5s ease;
+      width: 100%;
+      justify-content: center;
+    }
+
+    header.shrunk .header-right {
+      flex-direction: row;
+      width: auto;
+      justify-content: flex-end;
+      gap: 20px;
+    }
+
+    /* Resume button and social links inside header-right */
+    .actions {
+      margin: 0;
+      transition: all 0.5s ease;
+    }
+
+    .social-links {
+      margin: 0;
+      font-size: 1.8em;
+      gap: 25px;
+      transition: all 0.5s ease;
+      display: flex;
+    }
+
+    header.shrunk .btn-resume {
+      font-size: 0.9rem;
+      padding: 8px 18px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background-color: #1f1f1f;
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+      transition: font-size 0.4s ease, padding 0.4s ease, transform 0.4s ease;
+      z-index: 1500;
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+
+    header.shrunk nav {
+      font-size: 1.3rem;
+      padding: 15px 0;
+      box-shadow: 0 2px 15px #00bcd4bb;
+      transform: scale(1.1);
+      margin-top: 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+
+    nav ul li a {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: block;
+      text-align: center;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus {
+      background-color: #00bcd4;
+      color: #121212;
+      outline: none;
+    }
+
+    .btn-resume {
+      background-color: #00bcd4;
+      color: #121212;
+      font-weight: bold;
+      padding: 10px 22px;
+      border-radius: 25px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 188, 212, 0.6);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+    }
+
+    .btn-resume:hover,
+    .btn-resume:focus {
+      background-color: #0097a7;
+      box-shadow: 0 6px 20px rgba(0, 151, 167, 0.8);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .social-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.3s ease;
+      will-change: transform, color;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-links a:hover,
+    .social-links a:focus {
+      color: #00bcd4;
+      transform: scale(1.3);
+    }
+
+    section {
+      max-width: 800px;
+      margin: 260px auto 40px auto; /* space for fixed header */
+      padding-bottom: 200px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.7s ease 0.4s, transform 0.7s ease 0.4s;
+    }
+
+    section h2 {
+      font-size: 2em;
+      margin-bottom: 15px;
+      color: #00bcd4;
+    }
+
+    section p {
+      font-size: 1.1em;
+      color: #ccc;
+      line-height: 1.5;
+      margin-bottom: 1em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #888;
+      border-top: 1px solid #333;
+      max-width: 800px;
+      margin: 0 auto 40px auto;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        min-height: 160px;
+        padding: 15px;
+      }
+
+      .profile-photo {
+        width: 120px;
+        height: 120px;
+      }
+
+      header.shrunk {
+        min-height: 50px;
+        padding: 8px 15px;
+      }
+
+      header.shrunk .profile-photo {
+        width: 50px;
+        height: 50px;
+      }
+
+      nav {
+        font-size: 1rem;
+      }
+
+      header.shrunk nav {
+        font-size: 1.15rem;
+      }
+
+      section {
+        margin: 220px 10px 40px 10px;
+      }
+    }
+  </style>
+
+  <!-- FontAwesome -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+  <header id="page-header">
+    <div class="header-top">
+      <img
+        src="https://i.pravatar.cc/160"
+        alt="Franklin Prasanna"
+        class="profile-photo"
+        width="160"
+        height="160"
+      />
+      <div class="name-subtitle">
+        <h1>Franklin Prasanna</h1>
+        <p>Full Stack Developer</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="actions">
+        <a
+          href="Franklin_Prasanna_Resume.pdf"
+          download
+          class="btn-resume"
+          title="Download Resume"
+        >
+          <i class="fas fa-file-download" aria-hidden="true"></i> Download Resume
+        </a>
+      </div>
+
+      <div class="social-links" aria-label="Social media links">
+        <a href="https://github.com/fr4nky-blip" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/franklin-prasanna" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://twitter.com/franklinpr" target="_blank" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>I’m a developer with a passion for building full-stack web apps and games. I love combining functionality and design.</p>
+  </section>
+
+  <section id="projects" class="section">
+    <h2>Projects</h2>
+    <div class="project">
+      <img src="images/readcom.png" alt="READCOM Project" />
+      <div class="project-desc">
+        <h3>READCOM</h3>
+        <p>A PHP-based online bookstore with features like favorites, user reviews, and ratings system.</p>
+      </div>
+    </div>
+    <div class="project">
+      <img src="images/gamevault.png" alt="GAMEVAULT Project" />
+      <div class="project-desc">
+        <h3>GAMEVAULT</h3>
+        <p>An interactive game library with a custom-designed game design document (GDD) system for developers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="section">
+    <h2>Education</h2>
+    <ul>
+      <li>B.Sc. Computer Science – Loyola College</li>
+      <li>M.Sc. Computer Science – St. Joseph’s College (Pursuing)</li>
+    </ul>
+  </section>
+
+  <section id="certificates" class="section">
+    <h2>Certificates</h2>
+    <div class="certificate-list">
+      <div class="certificate-item">
+        <img src="images/webdev-internship.png" alt="Web Development Internship Certificate" />
+        <p>Web Development Internship – 2024</p>
+      </div>
+      <div class="certificate-item">
+        <img src="images/js-bootcamp.png" alt="JavaScript Bootcamp Certificate" />
+        <p>JavaScript Bootcamp – Udemy</p>
+      </div>
+      <div class="certificate-item">
+        <img src="images/github-cicd.png" alt="GitHub CI/CD Certificate" />
+        <p>GitHub CI/CD – Coursera</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Contact</h2>
+    <p>Email: franklin@example.com</p>
+    <p>Phone: +91-XXXXXXXXXX</p>
+  </section>
+
+  <footer>
+    &copy; 2025 Franklin Prasanna
+  </footer>
+
+  <script>
+    const header = document.getElementById('page-header');
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+
+          if (currentScrollY > 80) {
+            header.classList.add('shrunk');
+          } else {
+            header.classList.remove('shrunk');
+          }
+
+          ticking = false;
+        });
+
+        ticking = true;
+      }
+    });
+  </script>
+</body>
+</html>
